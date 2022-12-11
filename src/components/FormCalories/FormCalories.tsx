@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {MealOnClientSide, MealTypeApi} from "../../types";
 import {useNavigate} from "react-router-dom";
+import ButtonSpinner from "../Spinner/ButtonSpinner/ButtonSpinner";
 
 interface Props {
   onSubmit: (meal: MealTypeApi) => void;
@@ -48,10 +49,10 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
               onChange={onChangeForm}
             >
               <option disabled value="">Choose a meal time</option>
-              <option value="breakfast">Breakfast</option>
-              <option value="snack">Snack</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Snack">Snack</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
             </select>
           </label>
         </div>
@@ -78,7 +79,10 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
           />
         </div>
         <div className="form-group mt-3">
-          <button className="btn btn-success">Save</button>
+          <button disabled={loading} className="btn btn-success">
+            {loading && <ButtonSpinner/>}
+            Save
+          </button>
         </div>
       </form>
     </>
