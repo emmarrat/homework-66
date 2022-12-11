@@ -47,12 +47,8 @@ function App() {
   useEffect(() => {
     if(location.pathname === "/") {
       void fetchMeals();
-
     }
   }, [fetchMeals, location]);
-
-  console.log(meals);
-
 
   return (
     <>
@@ -61,7 +57,13 @@ function App() {
       </header>
       <main className="container pt-5">
         <Routes>
-          <Route path="/" element={<Home meals={meals} loading={loading} totalCalories={totalCalories}/>}/>
+          <Route path="/" element={(
+            <Home
+              meals={meals}
+              loading={loading}
+              totalCalories={totalCalories}
+              fetchMeals={fetchMeals}
+            />)}/>
           <Route path="/add-new-meal" element={<AddMeal/>}/>
         </Routes>
       </main>
