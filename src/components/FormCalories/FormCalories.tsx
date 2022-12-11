@@ -94,6 +94,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading, editingMeal}) => {
             className="form-control"
             value={meal.date}
             placeholder="dd-mm-yyyy"
+            max={today.toLocaleDateString('en-CA')}
             required
           />
         </div>

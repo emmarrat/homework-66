@@ -16,11 +16,12 @@ const EditMeal = () => {
       setLoading(true);
       const mealResponse = await axiosApi.get<MealTypeApi>('/meals/' + id + '.json');
       const meal = mealResponse.data;
-      setMeal({
-        ...meal,
-        calories: meal.calories.toString(),
-      });
-
+      if (meal) {
+        setMeal({
+          ...meal,
+          calories: meal.calories.toString(),
+        });
+      }
     } finally {
       setLoading(false);
     }
