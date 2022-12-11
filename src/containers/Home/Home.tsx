@@ -7,9 +7,10 @@ import Spinner from "../../components/Spinner/Spinner";
 interface Props {
   meals: MealType[];
   loading: boolean;
+  totalCalories: number;
 }
 
-const Home: React.FC<Props> = ({meals, loading}) => {
+const Home: React.FC<Props> = ({meals, loading, totalCalories}) => {
 
   return (
     <>
@@ -17,7 +18,7 @@ const Home: React.FC<Props> = ({meals, loading}) => {
         <>
           <div className="d-flex justify-content-between">
             <div>
-              Total calories: some number
+              Total calories: <b> {totalCalories} kcal</b>
             </div>
             <AddMealButton/>
           </div>

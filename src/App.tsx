@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./containers/Home/Home";
 import AddMeal from "./containers/AddMeal/AddMeal";
@@ -7,9 +7,19 @@ import {MealsListApi, MealType} from "./types";
 import axiosApi from "./axiosApi";
 
 function App() {
+  const location = useLocation();
 
   const [meals, setMeals] = useState<MealType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [totalCalories, setTotalCalories] = useState<number>(0);
+
+   const getTotalCalories = useCallback( (meals: MealType[]) => {
+     const total =  meals.reduce((acc, meal) => {
+       return acc + meal.calories;
+     }, 0);
+
+     setTotalCalories(total);
+   }, []);
 
   const fetchMeals = useCallback(async () => {
     try {
@@ -26,16 +36,20 @@ function App() {
             id
           }
         });
+        getTotalCalories(newMeals);
       }
       setMeals(newMeals);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [getTotalCalories]);
 
   useEffect(() => {
-    void fetchMeals();
-  }, [fetchMeals])
+    if(location.pathname === "/") {
+      void fetchMeals();
+
+    }
+  }, [fetchMeals, location]);
 
   console.log(meals);
 
@@ -47,7 +61,7 @@ function App() {
       </header>
       <main className="container pt-5">
         <Routes>
-          <Route path="/" element={<Home meals={meals} loading={loading}/>}/>
+          <Route path="/" element={<Home meals={meals} loading={loading} totalCalories={totalCalories}/>}/>
           <Route path="/add-new-meal" element={<AddMeal/>}/>
         </Routes>
       </main>
