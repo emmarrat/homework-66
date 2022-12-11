@@ -15,6 +15,7 @@ const MealCard: React.FC<Props> = ({meal, onDelete, deleteLoading}) => {
         <div>
           <h5 className="card-title">{meal.time}</h5>
           <p className="card-text">{meal.descr}</p>
+          <p className="card-text">{meal.date}</p>
         </div>
         <div className="d-flex justify-content-between align-items-center w-25">
           <p className="card-text m-0">{meal.calories} kcal</p>

@@ -9,13 +9,14 @@ interface Props {
   editingMeal?: MealOnClientSide;
 }
 
-
 const FormCalories: React.FC<Props> = ({onSubmit, loading, editingMeal}) => {
   const navigate = useNavigate();
+  const today = new Date();
   const [meal, setMeal] = useState<MealOnClientSide>(editingMeal ? editingMeal : {
     time: '',
     descr: '',
     calories: '',
+    date: today.toLocaleDateString('en-CA'),
   });
 
   const onChangeForm = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -80,6 +81,19 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading, editingMeal}) => {
             type="number"
             className="form-control"
             value={meal.calories}
+            required
+          />
+        </div>
+        <div className="form-group w-25">
+          <label className="form-label">Choose the date</label>
+          <input
+            disabled={loading}
+            onChange={onChangeForm}
+            name="date"
+            type="date"
+            className="form-control"
+            value={meal.date}
+            placeholder="dd-mm-yyyy"
             required
           />
         </div>

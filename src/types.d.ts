@@ -2,6 +2,7 @@ export interface MealTypeApi {
   time: string;
   descr: string;
   calories: number;
+  date: string;
 }
 
 export interface MealsListApi {
@@ -16,4 +17,5 @@ export interface MealOnClientSide {
   time: string;
   descr: string;
   calories: string;
+  date: string;
 }

@@ -14,13 +14,19 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [totalCalories, setTotalCalories] = useState<number>(0);
 
-   const getTotalCalories = useCallback( (meals: MealType[]) => {
-     const total =  meals.reduce((acc, meal) => {
-       return acc + meal.calories;
-     }, 0);
+  const getTotalCalories = useCallback((meals: MealType[]) => {
+    const now = new Date().toLocaleDateString('en-CA');
+    const total = meals.reduce((acc, meal) => {
+      if (meal.date === now) {
+        return acc + meal.calories;
+      } else {
+        return acc
+      }
+    }, 0);
 
-     setTotalCalories(total);
-   }, []);
+    setTotalCalories(total);
+  }, []);
+
 
   const fetchMeals = useCallback(async () => {
     try {
@@ -38,15 +44,21 @@ function App() {
           }
         });
         getTotalCalories(newMeals);
+        const sortedMeals = newMeals.sort(function (a, b) {
+          return Date.parse(b.date) - Date.parse(a.date);
+        });
+        setMeals(sortedMeals);
+      } else {
+        setMeals(newMeals);
       }
-      setMeals(newMeals);
+
     } finally {
       setLoading(false);
     }
   }, [getTotalCalories]);
 
   useEffect(() => {
-    if(location.pathname === "/") {
+    if (location.pathname === "/") {
       void fetchMeals();
     }
   }, [fetchMeals, location]);

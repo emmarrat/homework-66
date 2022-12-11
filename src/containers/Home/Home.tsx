@@ -27,21 +27,33 @@ const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
     }
   };
 
+  let content = (
+    <div className="mt-5 d-flex flex-column align-items-center">
+      {meals.map(meal => (
+        <MealCard meal={meal} key={meal.id} deleteLoading={deleting} onDelete={() => deleteMeal(meal.id)}/>
+      ))}
+    </div>
+  );
+
+  if(meals.length === 0) {
+    content = (
+      <>
+        <h3 className="text-center mt-5">List of meals is empty...</h3>
+      </>
+    )
+  }
+
   return (
     <>
       {loading ? <Spinner/> : (
         <>
           <div className="d-flex justify-content-between">
             <div>
-              Total calories: <b> {totalCalories} kcal</b>
+              <h3>Total calories for today: <b> {totalCalories} kcal</b></h3>
             </div>
             <AddMealButton/>
           </div>
-          <div className="mt-5 d-flex flex-column align-items-center">
-            {meals.map(meal => (
-              <MealCard meal={meal} key={meal.id} deleteLoading={deleting} onDelete={() => deleteMeal(meal.id)}/>
-            ))}
-          </div>
+          {content}
         </>
       )}
     </>
