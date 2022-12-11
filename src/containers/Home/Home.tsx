@@ -15,6 +15,8 @@ interface Props {
 const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
   const [deleting, setDeleting] = useState(false);
 
+  const today = new Date().toLocaleDateString('en-CA');
+
   const deleteMeal = async (id: string) => {
     try {
       setDeleting(true);
@@ -49,7 +51,7 @@ const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
         <>
           <div className="d-flex justify-content-between">
             <div>
-              <h3>Total calories for today: <b> {totalCalories} kcal</b></h3>
+              <h3>Total calories for today ({today}): <b> {totalCalories} kcal</b></h3>
             </div>
             <AddMealButton/>
           </div>
