@@ -18,7 +18,6 @@ const AddMeal = () => {
   };
   return (
     <div>
-      <h3>Add new meal</h3>
       <FormCalories onSubmit={addMeal} loading={loading}/>
     </div>
   );

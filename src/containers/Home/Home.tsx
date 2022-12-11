@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AddMealButton from "../../components/AddMealButton/AddMealButton";
 import {MealType} from "../../types";
 import MealCard from "../../components/MealCard/MealCard";
@@ -13,12 +13,20 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
-  const removeMeal = async (id: string) => {
-    if(window.confirm('Please confirm that you want to delete selected meal')) {
-      await axiosApi.delete('/meals/' + id + '.json');
-      await fetchMeals();
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteMeal = async (id: string) => {
+    try {
+      setDeleting(true);
+      if (window.confirm('Please confirm that you want to delete selected meal')) {
+        await axiosApi.delete('/meals/' + id + '.json');
+        await fetchMeals();
+      }
+    } finally {
+      setDeleting(false);
     }
   };
+
   return (
     <>
       {loading ? <Spinner/> : (
@@ -31,7 +39,7 @@ const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
           </div>
           <div className="mt-5 d-flex flex-column align-items-center">
             {meals.map(meal => (
-              <MealCard meal={meal} key={meal.id} onDelete={() => removeMeal(meal.id)}/>
+              <MealCard meal={meal} key={meal.id} deleteLoading={deleting} onDelete={() => deleteMeal(meal.id)}/>
             ))}
           </div>
         </>

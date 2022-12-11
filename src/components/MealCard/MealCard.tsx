@@ -5,9 +5,10 @@ import {MealType} from "../../types";
 interface Props {
   meal: MealType;
   onDelete: React.MouseEventHandler;
+  deleteLoading: boolean;
 }
 
-const MealCard: React.FC<Props> = ({meal, onDelete}) => {
+const MealCard: React.FC<Props> = ({meal, onDelete, deleteLoading}) => {
   return (
     <div className="card border-0 mb-3 w-75 shadow-lg p-3 bg-body rounded">
       <div className="card-body d-flex justify-content-between align-items-center">
@@ -19,7 +20,7 @@ const MealCard: React.FC<Props> = ({meal, onDelete}) => {
           <p className="card-text m-0">{meal.calories} kcal</p>
           <div>
             <Link to={"/edit-meal/" + meal.id} className="btn btn-warning text-light d-block mb-1">Edit</Link>
-            <button onClick={onDelete} className="btn btn-danger d-block">Delete</button>
+            <button onClick={onDelete} disabled={deleteLoading} className="btn btn-danger d-block">Delete</button>
           </div>
         </div>
       </div>

@@ -6,12 +6,13 @@ import ButtonSpinner from "../Spinner/ButtonSpinner/ButtonSpinner";
 interface Props {
   onSubmit: (meal: MealTypeApi) => void;
   loading: boolean;
+  editingMeal?: MealOnClientSide;
 }
 
 
-const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
+const FormCalories: React.FC<Props> = ({onSubmit, loading, editingMeal}) => {
   const navigate = useNavigate();
-  const [meal, setMeal] = useState<MealOnClientSide>({
+  const [meal, setMeal] = useState<MealOnClientSide>(editingMeal ? editingMeal : {
     time: '',
     descr: '',
     calories: '',
@@ -35,6 +36,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
 
   return (
     <>
+      <h3 className="text-center">{editingMeal ? "Please, edit your meal" : "Please, add a new meal"}</h3>
       <form className="mt-3" onSubmit={submitForm}>
         <div className="d-flex flex-row-reverse">
           <button onClick={() => navigate('/')} className="btn btn-sm btn-secondary">Cancel</button>
@@ -47,6 +49,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
               name="time"
               value={meal.time}
               onChange={onChangeForm}
+              disabled={loading}
             >
               <option disabled value="">Choose a meal time</option>
               <option value="Breakfast">Breakfast</option>
@@ -59,6 +62,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
         <div className="form-group mb-3 w-50">
           <label className="form-label">Meal description</label>
           <input
+            disabled={loading}
             onChange={onChangeForm}
             name="descr"
             type="text"
@@ -70,6 +74,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
         <div className="form-group w-25">
           <label className="form-label">Count of calories</label>
           <input
+            disabled={loading}
             onChange={onChangeForm}
             name="calories"
             type="number"
@@ -81,7 +86,7 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading}) => {
         <div className="form-group mt-3">
           <button disabled={loading} className="btn btn-success">
             {loading && <ButtonSpinner/>}
-            Save
+            {editingMeal ? 'Update' : 'Save'}
           </button>
         </div>
       </form>
