@@ -20,7 +20,7 @@ function App() {
       if (meal.date === now) {
         return acc + meal.calories;
       } else {
-        return acc
+        return acc;
       }
     }, 0);
 
@@ -40,7 +40,7 @@ function App() {
           const meal = meals[id];
           return {
             ...meal,
-            id
+            id,
           }
         });
         getTotalCalories(newMeals);

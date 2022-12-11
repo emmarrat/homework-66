@@ -27,9 +27,9 @@ const FormCalories: React.FC<Props> = ({onSubmit, loading, editingMeal}) => {
     }));
   };
 
-  const submitForm = async (e:React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit( {
+    onSubmit({
       ...meal,
       calories: parseFloat(meal.calories),
     })

@@ -11,7 +11,7 @@ const AddMeal = () => {
     try{
       setLoading(true);
       await axiosApi.post('/meals.json', meal);
-      navigate('/')
+      navigate('/');
     } finally {
       setLoading(false);
     }

@@ -35,12 +35,12 @@ const Home: React.FC<Props> = ({meals, loading, totalCalories, fetchMeals}) => {
     </div>
   );
 
-  if(meals.length === 0) {
+  if (meals.length === 0) {
     content = (
       <>
         <h3 className="text-center mt-5">List of meals is empty...</h3>
       </>
-    )
+    );
   }
 
   return (
