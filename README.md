@@ -11,6 +11,6 @@ All manipulations with adding or removing meals occur using Firebase Realtime Da
 ## Worked on React with TS, React router dom, Axios, firebase and bootstrap
 
 ## To run this app:
-Clone this repository
-Install all necessary dependencies via npm i
-Start the app via npm start
+1. Clone this repository
+2. Install all necessary dependencies via ```npm i```
+3. Start the app via ```npm start```
